@@ -1,0 +1,10 @@
+<p>Name: {{data.name}}</p>
+<p>Age: {{data.age}}</p>
+
+<hr>
+<a href="/student/{{data.id}}/edit">Edit</a>
+
+<form action="/student/{{data.id}}" method="POST">
+  <input type="hidden" name="_method" value="DELETE">
+  <p><input type="submit" value="DELETE"></p>
+</form>
