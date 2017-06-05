@@ -1,7 +1,6 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var exphbs = require('express-handlebars');
-var mongoose = require('mongoose');
 var methodOverride = require('method-override');
 
 // Temporary data
