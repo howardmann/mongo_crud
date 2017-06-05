@@ -16,7 +16,11 @@ mongoose.connection.once('open', function(){
 var Schema = mongoose.Schema;
 var StudentSchema = new Schema({
   name: String,
-  age: Number
+  age: Number,
+  fun: {
+    type: Boolean,
+    default: false
+  }
 });
 
 // Create new student collection
