@@ -27,7 +27,7 @@ app.use(methodOverride(function (req, res) {
 app.use(require('./routes.js'));
 
 // 404
-app.get(function(req, res){
+app.use(function(req, res){
   res.status(404).send('Page does not exist');
 });
 

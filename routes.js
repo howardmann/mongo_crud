@@ -1,14 +1,15 @@
 var express = require('express');
 var router = express.Router();
+var mongoose = require('mongoose');
 
 // Import DATA
-var DATA = require('./data');
+var Student = require('./data');
 
 // Index
 router.get('/', function(req, res, next){
-  res.render('index', {
-    data: DATA
-  });
+  Student.find({})
+    .then((data) => res.render('index', {data}))
+    .catch(err => console.log(err))
 });
 
 // New
@@ -18,56 +19,53 @@ router.get('/new', function(req, res, next){
 
 // Create
 router.post('/create', function(req, res, next){
-  var newStudent = {
-    id: DATA.length + 1,
+  var newStudent = new Student({
     name: req.body.name,
     age: req.body.age
-  }
+  });
 
-  DATA.push(newStudent);
-
-  res.redirect('/');
+  newStudent.save()
+    .then(() => res.redirect('/'))
+    .catch(err => console.log(err));
 });
 
 // Edit
 router.get('/student/:id/edit', function(req, res, next){
-  var student = DATA.filter((el) => el.id == req.params.id);
-  if (student.length === 0) { return next()}
-  res.render('edit', {data: student[0]});
-})
+  Student.findById(req.params.id)
+    .then((result) => res.render('edit', {data: result}))
+    .catch(() => next());
+});
 
 // Show
 router.get('/student/:id', function(req, res, next){
-  var student = DATA.filter((el) => el.id == req.params.id);
-  if (student.length === 0) { return next()}
-  res.render('show', {data: student[0]});
+  Student.findById(req.params.id)
+    .then((result) => res.render('show', {data: result}))
+    .catch(() => next());
 });
 
 // Update
 router.put('/student/:id', function(req, res, next){
-  var student = DATA.filter((el) => el.id == req.params.id);
-  if (student.length === 0) { return next()}  
-  var studentId = student[0].id;
-  
-  var updatedStudent = {
-    id: studentId,
-    name: req.body.name,
-    age: req.body.age
-  }
-
-  DATA = DATA.filter((el) => el.id !== studentId)
-  DATA.push(updatedStudent);
-  res.render('index', {data: DATA});
+  Student.findByIdAndUpdate(req.params.id, { 
+    $set: { 
+      name: req.body.name,
+      age: req.body.age
+    }
+  }, { 
+    new: true 
+  })
+  .then((result) => res.redirect('/'))
+  .catch(err => {
+    console.log(err);
+    next()
+  });
 });
 
 // Delete
 router.delete('/student/:id', function(req, res, next){
-  var student = DATA.filter((el) => el.id == req.params.id);
-  if (student.length === 0) { return next()}  
-  var studentId = student[0].id;
-  DATA = DATA.filter((el) => el.id !== studentId)
-
-  res.render('index', {data: DATA});
+  Student.findById(req.params.id)
+    .then((result) => result.remove())
+    .then(() => res.redirect('/'))
+    .catch(() => next());
 });
 
 module.exports = router;
