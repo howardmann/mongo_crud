@@ -9,7 +9,7 @@ var Student = require('./data');
 router.get('/', function(req, res, next){
   Student.find({})
     .then((data) => res.render('index', {data}))
-    .catch(err => console.log(err))
+    .catch(next)
 });
 
 // New
@@ -18,7 +18,7 @@ router.get('/new', function(req, res, next){
 });
 
 // Create
-router.post('/create', function(req, res, next){
+router.post('/students', function(req, res, next){
   var newStudent = new Student({
     name: req.body.name,
     age: req.body.age
@@ -26,21 +26,21 @@ router.post('/create', function(req, res, next){
 
   newStudent.save()
     .then(() => res.redirect('/'))
-    .catch(err => console.log(err));
+    .catch(next);
 });
 
 // Edit
 router.get('/student/:id/edit', function(req, res, next){
   Student.findById(req.params.id)
     .then((result) => res.render('edit', {data: result}))
-    .catch(() => next());
+    .catch(next);
 });
 
 // Show
 router.get('/student/:id', function(req, res, next){
   Student.findById(req.params.id)
     .then((result) => res.render('show', {data: result}))
-    .catch(() => next());
+    .catch(next);
 });
 
 // Update
@@ -50,14 +50,9 @@ router.put('/student/:id', function(req, res, next){
       name: req.body.name,
       age: req.body.age
     }
-  }, { 
-    new: true 
-  })
-  .then((result) => res.redirect('/'))
-  .catch(err => {
-    console.log(err);
-    next()
-  });
+  }, { new: true })
+    .then((result) => res.redirect('/'))
+    .catch(next);
 });
 
 // Delete
@@ -65,7 +60,7 @@ router.delete('/student/:id', function(req, res, next){
   Student.findById(req.params.id)
     .then((result) => result.remove())
     .then(() => res.redirect('/'))
-    .catch(() => next());
+    .catch(next);
 });
 
 module.exports = router;

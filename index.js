@@ -26,6 +26,17 @@ app.use(methodOverride(function (req, res) {
 // Routes 
 app.use(require('./routes.js'));
 
+// Catch and send error messages
+app.use(function(err, req, res, next){
+  if (err) {
+    res.status(422).send({
+      error: err.message
+    });
+  } else {
+    next();
+  }
+});
+
 // 404
 app.use(function(req, res){
   res.status(404).send('Page does not exist');
