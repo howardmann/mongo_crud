@@ -4,9 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js",
-    "deploy": "now --public -e MONGO_USER=@mongo-user -e MONGO_PW=@mongo-pw"
+    "start": "NODE_ENV=production node index.js",
+    "dev": "NODE_ENV=development nodemon index.js"
   },
   "keywords": [],
   "author": "",
@@ -14,8 +13,6 @@
   "dependencies": {
     "body-parser": "^1.17.2",
     "express": "^4.15.3",
-    "express-handlebars": "^3.0.0",
-    "method-override": "^2.3.9",
     "mongoose": "^4.10.4"
   }
 }
