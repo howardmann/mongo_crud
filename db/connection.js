@@ -7,7 +7,7 @@ mongoose.Promise = global.Promise;
 var config  = process.env.NODE_ENV;
 
 if (config === 'development' ) {
-  mongoose.connect('mongodb://localhost:27017/mongo-crud');
+  mongoose.connect('mongodb://localhost:27017/mongo-population');
 } else {
   // Using mongoose to connect to MLAB database (Create new database single node free and create new user and set name and password)
   const username = process.env.MONGO_USER;

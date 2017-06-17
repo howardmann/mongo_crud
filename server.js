@@ -7,7 +7,7 @@ var app = express();
 app.use(bodyParser.json());
 
 // Routes 
-app.use(require('./routes.js'));
+app.use(require('./routes/index'));
 
 // Catch and send error messages
 app.use(function(err, req, res, next){
