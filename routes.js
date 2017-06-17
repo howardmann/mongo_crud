@@ -3,7 +3,7 @@ var router = express.Router();
 var mongoose = require('mongoose');
 
 // Import DATA
-var Student = require('./data');
+var Student = require('./model/student');
 
 // RESTFUL STUDENTS ROUTES
 // Index
