@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "start": "NODE_ENV=production node server",
-    "dev": "NODE_ENV=development nodemon server"
+    "dev": "NODE_ENV=development nodemon server",
+    "deploy": "now --public -e MONGO_USER=@mongo-user -e MONGO_PW=@mongo-pw && now alias"
   },
   "keywords": [],
   "author": "",
@@ -14,5 +15,8 @@
     "body-parser": "^1.17.2",
     "express": "^4.15.3",
     "mongoose": "^4.10.4"
+  },
+  "now": {
+    "alias": "mongo-population"
   }
 }
