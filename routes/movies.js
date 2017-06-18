@@ -15,6 +15,7 @@ exports.create = function(req, res, next){
 
 exports.show = function(req, res, next){
   Movie.findById(req.params.id)
+    .populate('comments.user', 'name')
     .then((data) => {
       res.send(data)
     })

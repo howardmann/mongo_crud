@@ -1,10 +1,15 @@
 var mongoose = require('mongoose');
 
-var CommentSchema = new mongoose.Schema({
+var Schema = mongoose.Schema;
+var CommentSchema = new Schema({
   comment: String,
   rating: {
     type: Number,
     default: 3
+  },
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: 'User'
   }
 });
 

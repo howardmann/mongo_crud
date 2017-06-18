@@ -4,7 +4,7 @@ var mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
 // Set environment variables
-var config  = process.env.NODE_ENV;
+var config  = process.env.NODE_ENV || 'development';
 
 exports.connect = function(){
   if (config === 'development' ) {
