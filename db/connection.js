@@ -13,7 +13,7 @@ exports.connect = function(){
     // Using mongoose to connect to MLAB database (Create new database single node free and create new user and set name and password)
     const username = process.env.MONGO_USER;
     const password = process.env.MONGO_PW;
-    mongoose.connect(`mongodb://${username}:${password}@ds163681.mlab.com:63681/mongo-crud`);
+    mongoose.connect(`mongodb://${username}:${password}@ds131432.mlab.com:31432/mongo-population`);
   }
 
   // Signal connection
